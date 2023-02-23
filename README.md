@@ -26,7 +26,7 @@ Además vamos a aprovechar este **spring** para **refactorizar** lo que llevamos
 
 Además, te muestro un diagrama de clases para el mismo y poco a poco te iré explicando los diferentes pasos a realizar:
 
-![Diagrama de clases de la tarea](src/main/resources/uml/alquilerVehiculos.png)
+![Diagrama de clases de la tarea](resources/alquilerVehiculos.png)
 
 
 #### Primeros Pasos
