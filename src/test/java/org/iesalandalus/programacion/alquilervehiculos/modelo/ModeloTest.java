@@ -22,7 +22,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Clientes;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Turismos;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Vehiculos;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ public class ModeloTest {
 	@Mock
 	private static Clientes clientes;
 	@Mock
-	private static Turismos turismos;
+	private static Vehiculos turismos;
 	@Mock
 	private static Alquileres alquileres;
 
@@ -61,7 +61,7 @@ public class ModeloTest {
 		when(cliente.getDni()).thenReturn("11223344B");
 		when(cliente.getTelefono()).thenReturn("950112233");
 		turismo = mock();
-		mockConstruction(Turismos.class);
+		mockConstruction(Vehiculos.class);
 		mockConstruction(Turismo.class);
 		when(turismo.getMarca()).thenReturn("Seat");
 		when(turismo.getModelo()).thenReturn("León");

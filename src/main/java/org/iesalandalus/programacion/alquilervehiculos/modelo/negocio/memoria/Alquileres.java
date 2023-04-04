@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
+package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.naming.OperationNotSupportedException;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 public class Alquileres {
 
@@ -40,12 +41,12 @@ public class Alquileres {
 		return copia;
 	}
 	
-	public List<Alquiler> get(Turismo turismo) {
+	public List<Alquiler> get(Vehiculo vehiculo) {
 		
 		List<Alquiler> copia = new ArrayList<Alquiler>();
 		
 		for (int i=0; i<coleccionAlquileres.size(); i++) {
-			if (coleccionAlquileres.get(i).getTurismo().equals(turismo))
+			if (coleccionAlquileres.get(i).getVehiculo().equals(vehiculo))
 				copia.add(coleccionAlquileres.get(i));
 		}
 		return copia;
@@ -56,14 +57,14 @@ public class Alquileres {
 	}
 	
 
-	private void comprobarAlquiler(Cliente cliente, Turismo turismo, LocalDate fechaAlquiler) throws OperationNotSupportedException {
+	private void comprobarAlquiler(Cliente cliente, Vehiculo vehiculo, LocalDate fechaAlquiler) throws OperationNotSupportedException {
 		
 		for (Alquiler alquiler : coleccionAlquileres) {
-			if (alquiler.getTurismo().equals(turismo) && alquiler.getFechaDevolucion() == null) 
+			if (alquiler.getVehiculo().equals(vehiculo) && alquiler.getFechaDevolucion() == null) 
 				throw new OperationNotSupportedException("ERROR: El turismo está actualmente alquilado.");
 			 else if (alquiler.getCliente().equals(cliente) && alquiler.getFechaDevolucion() == null) 
 				throw new OperationNotSupportedException("ERROR: El cliente tiene otro alquiler sin devolver.");
-			 else if (alquiler.getTurismo().equals(turismo) && (alquiler.getFechaDevolucion().isAfter(fechaAlquiler) || alquiler.getFechaDevolucion().equals(fechaAlquiler))) 
+			 else if (alquiler.getVehiculo().equals(vehiculo) && (alquiler.getFechaDevolucion().isAfter(fechaAlquiler) || alquiler.getFechaDevolucion().equals(fechaAlquiler))) 
 				throw new OperationNotSupportedException("ERROR: El turismo tiene un alquiler posterior.");
 			 else if (alquiler.getCliente().equals(cliente) && (alquiler.getFechaDevolucion().isAfter(fechaAlquiler) || alquiler.getFechaDevolucion().equals(fechaAlquiler))) 
 				throw new OperationNotSupportedException("ERROR: El cliente tiene un alquiler posterior.");			
@@ -75,7 +76,7 @@ public class Alquileres {
 		if (alquiler == null) 
 			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
 		
-		this.comprobarAlquiler(alquiler.getCliente(), alquiler.getTurismo(), alquiler.getFechaAlquiler());
+		this.comprobarAlquiler(alquiler.getCliente(), alquiler.getVehiculo(), alquiler.getFechaAlquiler());
 		
 		coleccionAlquileres.add(alquiler);
 	}

@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 public class Consola {
@@ -103,9 +104,9 @@ public class Consola {
 		String matricula=leerCadena("Introduzca la matricula del vehiculo: ");
 		return new Turismo(marca,modelo,cilindrada,matricula);
 	}
-	public static Turismo leerTurismoMatricula() {
+	public static Vehiculo leerVehiculoMatricula() {
 		String matricula=leerCadena("Introduzaca el la matricula del turismo: ");
-		return Turismo.getTurismoConMatricula(matricula);
+		return Vehiculo.getVehiculoConMatricula(matricula);
 	}
 	public static Alquiler leerAlquiler() {
 		Cliente cliente=leerClienteDni();

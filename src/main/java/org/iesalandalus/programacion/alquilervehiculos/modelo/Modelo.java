@@ -10,18 +10,18 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Alquileres;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Clientes;
-import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Turismos;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.Vehiculos;
 
 public class Modelo {
 	private Clientes clientes;
 	private Alquileres alquileres;
-	private Turismos turismos;
+	private Vehiculos turismos;
 	
 	public void comenzar() {
 
 		clientes = new Clientes();
 		alquileres = new Alquileres();
-		turismos = new Turismos();
+		turismos = new Vehiculos();
 	}
 	
 	public void terminar() {
