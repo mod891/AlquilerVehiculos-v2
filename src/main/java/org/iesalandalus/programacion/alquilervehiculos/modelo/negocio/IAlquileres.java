@@ -1,0 +1,29 @@
+package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.naming.OperationNotSupportedException;
+
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+
+public interface IAlquileres {
+
+	List<Alquiler> get();
+
+	int getCantidad();
+
+	void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException;
+
+	List<Alquiler> get(Cliente cliente);
+
+	List<Alquiler> get(Vehiculo vehiculo);
+
+	void insertar(Alquiler alquiler) throws OperationNotSupportedException;
+
+	Alquiler buscar(Alquiler alquiler);
+
+	void borrar(Alquiler alquiler) throws OperationNotSupportedException;
+}

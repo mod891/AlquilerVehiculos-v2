@@ -9,8 +9,9 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IAlquileres;
 
-public class Alquileres {
+public class Alquileres implements IAlquileres {
 
 	List<Alquiler> coleccionAlquileres;
 
