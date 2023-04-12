@@ -43,7 +43,7 @@ public abstract class Modelo {
 	
 	public abstract Cliente buscar(Cliente cliente);
 
-	public abstract Vehiculo buscar(Vehiculo turismo);
+	public abstract Vehiculo buscar(Vehiculo vehiculo);
 
 	public abstract Alquiler buscar(Alquiler alquiler);
 	

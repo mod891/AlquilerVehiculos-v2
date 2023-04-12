@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.alquilervehiculos.vista;
+package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.iesalandalus.programacion.alquilervehiculos.controlador.Controlador;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
-public class Vista {
+public class VistaTexto extends Vista {
 	private Controlador controlador;
 	
 	public void setControlador(Controlador controlador) {
@@ -20,20 +21,20 @@ public class Vista {
 	}
 	
 	public void comenzar() {
-		Opcion opcion;
+		Accion opcion;
 		do {
-			Consola.mostrarMenu();
+			Consola.mostrarMenuAcciones();
 			opcion=Consola.elegirOpcion();
 			ejecutar(opcion);
 		}
-		while (opcion!=Opcion.SALIR);
+		while (opcion!=Accion.SALIR);
 
 	}
 	public void terminar() {
 		System.out.println("La vista ha finalizado");
 	}
 	
-	public void ejecutar(Opcion opcion) {
+	private void ejecutar(Accion opcion) {
 		
 		switch (opcion) {
 
@@ -43,8 +44,8 @@ public class Vista {
 			case INSERTAR_CLIENTE: 
 				insertarCliente();
 	            break;
-			case INSERTAR_TURISMO: 
-				insertarTurismo();
+			case INSERTAR_VEHICULO: 
+				insertarVehiculo();//TODO
 	            break;
 			case INSERTAR_ALQUILER: 
 				insertarAlquiler();
@@ -52,8 +53,8 @@ public class Vista {
 			case BUSCAR_CLIENTE: 
 				buscarCliente();
 	            break;
-			case BUSCAR_TURISMO: 
-				buscarTurismo();
+			case BUSCAR_VEHICULO: 
+				buscarVehiculo();
 	            break;
 			case BUSCAR_ALQUILER: 
 				buscarAlquiler();
@@ -67,8 +68,8 @@ public class Vista {
 			case BORRAR_CLIENTE: 
 				borrarCliente();
 	            break;
-			case BORRAR_TURISMO: 
-				borrarTurismo();
+			case BORRAR_VEHICULO: 
+				borrarVehiculo();
 	            break;
 			case BORRAR_ALQUILER: 
 				borrarAlquiler();
@@ -76,8 +77,8 @@ public class Vista {
 			case LISTAR_CLIENTES: 
 				listarClientes();
 	            break;
-			case LISTAR_TURISMOS: 
-				listarTurismos();
+			case LISTAR_VEHICULOS: 
+				listarVehiculos();
 	            break;
 			case LISTAR_ALQUILERES: 
 				listarAlquileres();
@@ -85,13 +86,13 @@ public class Vista {
 			case LISTAR_ALQUILERES_CLIENTE: 
 				listarAlquileresCliente();
 	            break;
-			case LISTAR_ALQUILERES_TURISMO: 
-				listarAlquileresTurismo();
+			case LISTAR_ALQUILERES_VEHICULO: 
+				listarAlquileresVehiculo();
 	            break;
 		}
 	}
 
-	private void insertarCliente(){
+	protected void insertarCliente(){
 		 Consola.mostrarCabecera("Ha seleccionado insertar cliente");
 	        try {
 	            controlador.insertar(Consola.leerCliente());
@@ -101,13 +102,13 @@ public class Vista {
 	        }
 	}
     
-	private void insertarTurismo() {
-		 Consola.mostrarCabecera("Ha seleccionado insertar turismo");
+	protected void insertarVehiculo() {
+		 Consola.mostrarCabecera("Ha seleccionado insertar vehiculo");
 	        try {
-	        	Turismo t =Consola.leerTurismo();
-	        	System.out.println(t.toString());
-	            controlador.insertar(t);
-	            System.out.println("Ha insertado un nuevo turismo");
+	        	Vehiculo vehiculo =Consola.leerVehiculo();
+	        	System.out.println(vehiculo.toString());
+	            controlador.insertar(vehiculo);
+	            System.out.println("Ha insertado un nuevo vehículo");
 	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -138,13 +139,13 @@ public class Vista {
 		
 	}
    
-	private void buscarTurismo() {
+	private void buscarVehiculo() {
 		 Consola.mostrarCabecera("Ha seleccionado buscar turismo");
 	        try {
-	            Turismo buscado = controlador.buscar(Consola.leerTurismoMatricula());
+	            Vehiculo buscado = controlador.buscar(Consola.leerVehiculoMatricula());
 	            if (buscado == null)
 	            	System.out.println("No se ha encontrado el turismo");
-	            else System.out.println("Turismo encontrado: "+buscado.toString());
+	            else System.out.println("Vehículo encontrado: "+buscado.toString());
 	            
 	        } catch (NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
@@ -199,11 +200,11 @@ public class Vista {
 		
 	}
  
-	private void borrarTurismo() {
+	private void borrarVehiculo() {
 		 Consola.mostrarCabecera("Ha seleccionado borrar turismo");
 	        try {
-	            controlador.borrar(Consola.leerTurismoMatricula());
-	            System.out.println("Turismo borrado");
+	            controlador.borrar(Consola.leerVehiculoMatricula());
+	            System.out.println("Vehículo borrado");
 	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
 	            System.out.println(e.getMessage());
 	        }
@@ -235,12 +236,12 @@ public class Vista {
 		
 	}
 
-	private void listarTurismos() {
-		 Consola.mostrarCabecera("Ha seleccionado listar turismos");
-		 List<Turismo> turismos;
+	private void listarVehiculos() {
+		 Consola.mostrarCabecera("Ha seleccionado listar vehículos");
+		 List<Vehiculo> vehiculos;
 	        try {
-	        	turismos = controlador.getTurismos();
-	        	for (Turismo it: turismos) 
+	        	vehiculos = controlador.getVehiculos();
+	        	for (Vehiculo it: vehiculos) 
 	        		System.out.println(it.toString());
 	        	
 	        } catch (NullPointerException | IllegalArgumentException e) {
@@ -277,11 +278,11 @@ public class Vista {
 		
 	}
   
-	private void listarAlquileresTurismo() {
-		 Consola.mostrarCabecera("Ha seleccionado listar alquileres turismo");
+	private void listarAlquileresVehiculo() {
+		 Consola.mostrarCabecera("Ha seleccionado listar alquileres vehículo");
 		 List<Alquiler> alquileres;
 	        try {
-	        	alquileres = controlador.getAlquileres(Consola.leerTurismoMatricula());
+	        	alquileres = controlador.getAlquileres(Consola.leerVehiculoMatricula());
 	        	for (Alquiler it: alquileres) 
 	        		System.out.println(it.toString());
 	        	
@@ -290,4 +291,5 @@ public class Vista {
 	        }
 		
 	}
+
 }

@@ -92,8 +92,6 @@ public abstract class Vehiculo {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		if (!(obj instanceof Vehiculo))
 			return false;
 		Vehiculo other = (Vehiculo) obj;

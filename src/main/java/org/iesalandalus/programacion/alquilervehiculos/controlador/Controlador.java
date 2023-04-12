@@ -9,7 +9,8 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.Modelo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
-import org.iesalandalus.programacion.alquilervehiculos.vista.Vista;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
+import org.iesalandalus.programacion.alquilervehiculos.vista.texto.Vista;
 
 public class Controlador {
 	
@@ -38,8 +39,8 @@ public class Controlador {
 	public void insertar(Cliente cliente) throws OperationNotSupportedException  {
 		modelo.insertar(cliente);
 	}
-	public void insertar(Turismo turismo) throws OperationNotSupportedException {
-		modelo.insertar(turismo);
+	public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
+		modelo.insertar(vehiculo);
 	}
 	public void insertar(Alquiler alquiler) throws OperationNotSupportedException {
 		modelo.insertar(alquiler);
@@ -48,8 +49,8 @@ public class Controlador {
 		
 		return modelo.buscar(cliente);
 	}
-	public Turismo buscar(Turismo turismo) {
-		return modelo.buscar(turismo);
+	public Vehiculo buscar(Vehiculo vehiculo) {
+		return modelo.buscar(vehiculo);
 		
 	}
 	public Alquiler buscar(Alquiler alquiler) {
@@ -65,8 +66,8 @@ public class Controlador {
 	public void borrar(Cliente cliente) throws OperationNotSupportedException {
 		modelo.borrar(cliente);
 	}	
-	public void borrar(Turismo turismo) throws OperationNotSupportedException {
-		modelo.borrar(turismo);
+	public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException {
+		modelo.borrar(vehiculo);
 	}	
 	public void borrar(Alquiler alquiler) throws OperationNotSupportedException {
 		modelo.borrar(alquiler);
@@ -74,8 +75,8 @@ public class Controlador {
 	public List<Cliente> getClientes(){
 		return modelo.getClientes();
 	}
-	public List<Turismo> getTurismos(){
-		return modelo.getTurismos();
+	public List<Vehiculo> getVehiculos(){
+		return modelo.getVehiculos();
 	}
 	public List<Alquiler> getAlquileres(){
 		return modelo.getAlquileres();
@@ -84,7 +85,7 @@ public class Controlador {
 	public List<Alquiler> getAlquileres(Cliente cliente){
 		return modelo.getAlquileres(cliente);
 	}
-	public List<Alquiler> getAlquileres(Turismo turismo){
-		return modelo.getAlquileres(turismo);
+	public List<Alquiler> getAlquileres(Vehiculo vehiculo){
+		return modelo.getAlquileres(vehiculo);
 	}
 }
