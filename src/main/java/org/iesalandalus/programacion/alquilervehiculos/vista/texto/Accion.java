@@ -17,7 +17,10 @@ public enum Accion {
 	LISTAR_VEHICULOS("Listar Vehículos"), 
 	LISTAR_ALQUILERES("Listar Alquileres"), 
 	LISTAR_ALQUILERES_CLIENTE("Listar Alquileres Cliente"), 
-	LISTAR_ALQUILERES_VEHICULO("Listar Alquileres Vehículo"); 
+	LISTAR_ALQUILERES_VEHICULO("Listar Alquileres Vehículo"),
+	DEVOLVER_ALQUILER_CLIENTE("Devolver Alquiler Cliente"),
+	DEVOLVER_ALQUILER_VEHICULO("Devolver Alquiler Vehículo"),
+	MOSTRAR_ESTADISTICAS_MESUALES("Mostrar Estadisticas Mensuales");
 	
 	private String texto; 
 	
