@@ -1,6 +1,9 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
+import java.time.LocalDate;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -62,9 +65,11 @@ public class VistaTexto extends Vista {
 			case MODIFICAR_CLIENTE: 
 				modificarCliente();
 	            break;
+            /*
 			case DEVOLVER_ALQUILER: 
 				devolverALquiler();
 	            break;
+            */
 			case BORRAR_CLIENTE: 
 				borrarCliente();
 	            break;
@@ -89,10 +94,19 @@ public class VistaTexto extends Vista {
 			case LISTAR_ALQUILERES_VEHICULO: 
 				listarAlquileresVehiculo();
 	            break;
+			case DEVOLVER_ALQUILER_CLIENTE:
+				devolverAlquilerCliente();
+				break;
+			case DEVOLVER_ALQUILER_VEHICULO:
+				devolverAlquilerVehiculo();
+				break;
+			case MOSTRAR_ESTADISTICAS_MESUALES:
+				mostrarEstadisticasMensualesTipoVehiculo();
+				break;
 		}
 	}
 
-	protected void insertarCliente(){
+	public void insertarCliente(){
 		 Consola.mostrarCabecera("Ha seleccionado insertar cliente");
 	        try {
 	            controlador.insertar(Consola.leerCliente());
@@ -102,7 +116,7 @@ public class VistaTexto extends Vista {
 	        }
 	}
     
-	protected void insertarVehiculo() {
+	public void insertarVehiculo() {
 		 Consola.mostrarCabecera("Ha seleccionado insertar vehiculo");
 	        try {
 	        	Vehiculo vehiculo =Consola.leerVehiculo();
@@ -114,7 +128,7 @@ public class VistaTexto extends Vista {
 	        }
 	}
     
-	private void insertarAlquiler() {
+	public void insertarAlquiler() {
 		 Consola.mostrarCabecera("Ha seleccionado insertar alquiler");
 	        try {
 	            controlador.insertar(Consola.leerAlquiler());
@@ -124,7 +138,7 @@ public class VistaTexto extends Vista {
 	        }
 	}
    
-	private void buscarCliente() {
+	public void buscarCliente() {
 		 Consola.mostrarCabecera("Ha seleccionado buscar cliente");
 		 Cliente cli = null;
 		 	try {
@@ -139,7 +153,7 @@ public class VistaTexto extends Vista {
 		
 	}
    
-	private void buscarVehiculo() {
+	public void buscarVehiculo() {
 		 Consola.mostrarCabecera("Ha seleccionado buscar turismo");
 	        try {
 	            Vehiculo buscado = controlador.buscar(Consola.leerVehiculoMatricula());
@@ -153,7 +167,7 @@ public class VistaTexto extends Vista {
 		
 	}
    
-	private void buscarAlquiler() {
+	public void buscarAlquiler() {
 		 Consola.mostrarCabecera("Ha seleccionado buscar alquiler");
 	        try {
 	        	Alquiler alquiler = Consola.leerAlquiler();
@@ -167,7 +181,7 @@ public class VistaTexto extends Vista {
 		
 	}
   
-	private void modificarCliente() {
+	public void modificarCliente() {
 		 Consola.mostrarCabecera("Ha seleccionado modificar cliente");
 	        try {
 	            controlador.modificar(Consola.leerClienteDni(),Consola.leerNombre(),Consola.leerTelefono());
@@ -177,8 +191,8 @@ public class VistaTexto extends Vista {
 	        }
 		
 	}
-  
-	private void devolverALquiler() {
+  /* DEPRECATED
+	public void devolverALquiler() {
 		Consola.mostrarCabecera("Ha seleccionado devolver alquiler");
         try {
             controlador.devolver(Consola.leerAlquiler(),Consola.leerFechaDevolucion());
@@ -188,8 +202,31 @@ public class VistaTexto extends Vista {
         }
 		
 	}
-
-	private void borrarCliente() {
+*/
+	public void devolverAlquilerCliente() {
+		 Consola.mostrarCabecera("Ha seleccionado devolver Alquiler Cliente");
+		 try {
+	            controlador.devolver(Consola.leerClienteDni(),Consola.leerFechaDevolucion());
+	            System.out.println("Alquiler devuelto");
+	            
+		 }  catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+		 }
+	}
+	
+	public void devolverAlquilerVehiculo() {
+		Consola.mostrarCabecera("Ha seleccionado devolver Alquiler Vehículo");
+		 try {
+	            controlador.devolver(Consola.leerVehiculoMatricula(),Consola.leerFechaDevolucion());
+	            System.out.println("Alquiler devuelto");
+	            
+		 }  catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {
+	            System.out.println(e.getMessage());
+		 }
+		
+	}
+	
+	public void borrarCliente() {
 		 Consola.mostrarCabecera("Ha seleccionado borrar cliente");
 	        try {
 	           controlador.borrar(Consola.leerClienteDni());
@@ -200,8 +237,8 @@ public class VistaTexto extends Vista {
 		
 	}
  
-	private void borrarVehiculo() {
-		 Consola.mostrarCabecera("Ha seleccionado borrar turismo");
+	public void borrarVehiculo() {
+		 Consola.mostrarCabecera("Ha seleccionado borrar vehículo");
 	        try {
 	            controlador.borrar(Consola.leerVehiculoMatricula());
 	            System.out.println("Vehículo borrado");
@@ -211,7 +248,7 @@ public class VistaTexto extends Vista {
 		
 	}
   
-	private void borrarAlquiler() {
+	public void borrarAlquiler() {
 		 Consola.mostrarCabecera("Ha seleccionado borrar alquiler");
 	        try {
 	            controlador.borrar(Consola.leerAlquiler());
@@ -222,7 +259,7 @@ public class VistaTexto extends Vista {
 		
 	}
 
-	private void listarClientes() {
+	public void listarClientes() {
 		 Consola.mostrarCabecera("Ha seleccionado listar clientes");
 		 List<Cliente> clientes;
 	        try {
@@ -236,7 +273,7 @@ public class VistaTexto extends Vista {
 		
 	}
 
-	private void listarVehiculos() {
+	public void listarVehiculos() {
 		 Consola.mostrarCabecera("Ha seleccionado listar vehículos");
 		 List<Vehiculo> vehiculos;
 	        try {
@@ -250,7 +287,7 @@ public class VistaTexto extends Vista {
 		
 	}
     
-	private void listarAlquileres() {
+	public void listarAlquileres() {
 		 Consola.mostrarCabecera("Ha seleccionado listar alquileres");
 		 List<Alquiler> alquileres;
 		 
@@ -264,7 +301,7 @@ public class VistaTexto extends Vista {
 	        }
 	}
  
-	private void listarAlquileresCliente() {
+	public void listarAlquileresCliente() {
 		 Consola.mostrarCabecera("Ha seleccionado listar alquileres cliente");
 		 List<Alquiler> alquileres;
 	        try {
@@ -278,7 +315,7 @@ public class VistaTexto extends Vista {
 		
 	}
   
-	private void listarAlquileresVehiculo() {
+	public void listarAlquileresVehiculo() {
 		 Consola.mostrarCabecera("Ha seleccionado listar alquileres vehículo");
 		 List<Alquiler> alquileres;
 	        try {
@@ -291,5 +328,32 @@ public class VistaTexto extends Vista {
 	        }
 		
 	}
+	
+	private Map<TipoVehiculo,Integer> inicializarEstadisticas() {
+		Map<TipoVehiculo,Integer> mapa = new EnumMap<>(TipoVehiculo.class);
+		
+		mapa.put(TipoVehiculo.AUTOBUS, 0);
+		mapa.put(TipoVehiculo.FURGONETA, 0);
+		mapa.put(TipoVehiculo.TURISMO, 0);
+		
+		return mapa;
+	}
 
+	public void mostrarEstadisticasMensualesTipoVehiculo() {
+		Map<TipoVehiculo,Integer> mapa = inicializarEstadisticas();
+		LocalDate mes = Consola.leerMes();
+		List<Alquiler> alquileres = controlador.getAlquileres();
+		TipoVehiculo tipo = null;
+		int nVeces = 0;
+		
+		for (Alquiler alquiler : alquileres) {
+			if ( alquiler.getFechaAlquiler().getMonth().equals(mes.getMonth()) ) {
+				tipo = TipoVehiculo.get(alquiler.getVehiculo());
+				nVeces = mapa.get(tipo) +1;
+				mapa.put(tipo,nVeces);
+			}
+					
+			System.out.println(mapa.toString());
+		}
+	}
 }
