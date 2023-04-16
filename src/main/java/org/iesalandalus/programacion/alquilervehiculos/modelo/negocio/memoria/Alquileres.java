@@ -82,13 +82,13 @@ public class Alquileres implements IAlquileres {
 		coleccionAlquileres.add(alquiler);
 	}
 	
-
+/*
 	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException {
 		if (alquiler == null) 
 			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
 		
 		if (fechaDevolucion == null) 
-			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
+			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
 		
 		int indice = coleccionAlquileres.indexOf(alquiler);
 		
@@ -97,6 +97,57 @@ public class Alquileres implements IAlquileres {
 			
 		else if (indice == -1) 
 			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler igual.");
+	}
+*/	
+	public void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		Alquiler abierto = getAlquilerAbierto(cliente);
+		
+		if (cliente == null) 
+			throw new NullPointerException("ERROR: el cliente es nulo");
+		
+		if (fechaDevolucion == null)
+			throw new NullPointerException("ERROR: fecha de devolución nula");
+		
+		if (abierto == null) 
+			throw new NullPointerException("ERROR: No existe un alquiler abierto para este cliente.");
+		
+		abierto.devolver(fechaDevolucion);
+	}
+
+	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		
+		if (vehiculo == null) 
+			throw new NullPointerException("ERROR: el vehículo es nulo");
+		
+		if (fechaDevolucion == null)
+			throw new NullPointerException("ERROR: fecha de devolución nula");
+		
+		
+		Alquiler abierto = getAlquilerAbierto(vehiculo);
+		
+		if (abierto == null) 
+			throw new NullPointerException("ERROR: No existe un alquiler abierto para este vehículo.");
+		
+		abierto.devolver(fechaDevolucion);
+	}
+	
+	private Alquiler getAlquilerAbierto(Cliente cliente) {
+
+		Alquiler abierto = null;
+		for (Alquiler it : coleccionAlquileres) {
+			if (it.getCliente().equals(cliente) && it.getFechaDevolucion() == null)
+				abierto = it;
+		}
+		return abierto;
+	}
+	
+	private Alquiler getAlquilerAbierto(Vehiculo vehiculo) {
+		Alquiler abierto = null;
+		for (Alquiler it : coleccionAlquileres) {
+			if (it.getVehiculo().equals(vehiculo) && it.getFechaDevolucion() == null)
+				abierto = it;
+		}
+		return abierto;
 	}
 	
 	public Alquiler buscar(Alquiler alquiler) {

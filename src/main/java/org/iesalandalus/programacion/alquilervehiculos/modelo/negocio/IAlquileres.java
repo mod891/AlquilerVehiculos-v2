@@ -15,7 +15,9 @@ public interface IAlquileres {
 
 	int getCantidad();
 
-	void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException;
+	void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException;
+
+	void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException;
 
 	List<Alquiler> get(Cliente cliente);
 

@@ -80,12 +80,10 @@ public class ModeloCascada extends Modelo {
 		if (fechadevolucion == null) 
 			throw new NullPointerException("ERROR: No se puede realizar una devolución nula.");
 		
-		if (this.alquileres.buscar(alquiler) == null) 
-			throw new OperationNotSupportedException("ERROR: No existe el alquiler a devolver.");
-		 
 		alquileres.devolver(cliente, fechadevolucion); 
 	}
 	public void devolver(Vehiculo vehiculo, LocalDate fechadevolucion) throws OperationNotSupportedException {
+		
 		if (vehiculo == null) 
 			throw new NullPointerException("ERROR: No pueder ser un vehículo nulo.");
 		
