@@ -73,9 +73,9 @@ public class ModeloCascada extends Modelo {
 		this.clientes.modificar(cliente, nombre, telefono);
 	}
 	
-	public void devolver(Alquiler alquiler, LocalDate fechadevolucion) throws OperationNotSupportedException {
-		if (alquiler == null) 
-			throw new NullPointerException("ERROR: No se puede realizar un alquiler nulo.");
+	public void devolver(Cliente cliente, LocalDate fechadevolucion) throws OperationNotSupportedException {
+		if (cliente == null) 
+			throw new NullPointerException("ERROR: No se puede devolver un cliente nulo.");
 		
 		if (fechadevolucion == null) 
 			throw new NullPointerException("ERROR: No se puede realizar una devolución nula.");
@@ -83,8 +83,19 @@ public class ModeloCascada extends Modelo {
 		if (this.alquileres.buscar(alquiler) == null) 
 			throw new OperationNotSupportedException("ERROR: No existe el alquiler a devolver.");
 		 
-		alquileres.devolver(alquiler, fechadevolucion); 
+		alquileres.devolver(cliente, fechadevolucion); 
 	}
+	public void devolver(Vehiculo vehiculo, LocalDate fechadevolucion) throws OperationNotSupportedException {
+		if (vehiculo == null) 
+			throw new NullPointerException("ERROR: No pueder ser un vehículo nulo.");
+		
+		if (fechadevolucion == null) 
+			throw new NullPointerException("ERROR: No se puede realizar una devolución nula.");
+		 
+		alquileres.devolver(vehiculo, fechadevolucion); 
+	}
+	
+	
 	
     public void borrar(Cliente cliente) throws OperationNotSupportedException {
        for (Alquiler alquiler : alquileres.get(cliente)) 

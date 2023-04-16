@@ -49,7 +49,9 @@ public abstract class Modelo {
 	
 	public abstract void modificar(Cliente cliente, String nombre, String telefono) throws OperationNotSupportedException;
 	
-	public abstract void devolver(Alquiler alquiler, LocalDate fechadevolucion) throws OperationNotSupportedException;
+	public abstract void devolver(Cliente cliente, LocalDate fechadevolucion) throws OperationNotSupportedException;
+
+	public abstract void devolver(Vehiculo vehiculo, LocalDate fechadevolucion) throws OperationNotSupportedException;
 
     public abstract void borrar(Cliente cliente) throws OperationNotSupportedException;
     
