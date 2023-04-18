@@ -12,7 +12,7 @@ public class MainApp {
 
 	public static void main(String[] args) {
 
-		Modelo modelo = new ModeloCascada(FactoriaFuenteDatos.MEMORIA.crear());
+		Modelo modelo = new ModeloCascada(FactoriaFuenteDatos.FICHEROS);
 		Vista vista = new VistaTexto();
 		Controlador controlador= new Controlador(modelo, vista);
 		controlador.comenzar();

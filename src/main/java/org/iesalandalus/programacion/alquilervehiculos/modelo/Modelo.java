@@ -20,6 +20,11 @@ public abstract class Modelo {
 	protected IVehiculos vehiculos;
 	protected IFuenteDatos fuenteDatos;
 	
+
+	public Modelo(FactoriaFuenteDatos factoriaFuenteDatos) {
+		setFuenteDatos(factoriaFuenteDatos.crear());
+	}
+	
 	public void comenzar() {
 
 		clientes = fuenteDatos.crearClientes();
