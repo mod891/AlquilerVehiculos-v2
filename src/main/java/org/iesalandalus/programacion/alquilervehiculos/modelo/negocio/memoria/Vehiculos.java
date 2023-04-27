@@ -48,6 +48,16 @@ public class Vehiculos implements IVehiculos {
 		else
 			throw new OperationNotSupportedException("ERROR: No existe ningún vehiculo con esa matrícula.");
 	}
+	@Override
+	public void comenzar() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void terminar() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

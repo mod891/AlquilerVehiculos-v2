@@ -168,4 +168,16 @@ public class Alquileres implements IAlquileres {
 		 
 		coleccionAlquileres.remove(alquiler);
 	}
+
+	@Override
+	public void comenzar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void terminar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

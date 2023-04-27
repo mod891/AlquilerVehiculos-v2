@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Vehiculos>
+    <Vehiculo Matricula="1111BBB" Tipo="Turismo">
+        <Marca>Seat</Marca>
+        <Modelo>León</Modelo>
+        <Turismo>
+            <Cilindrada>1100</Cilindrada>        
+        </Turismo>        
+    </Vehiculo>
+    <Vehiculo Matricula="1234BCD" Tipo="Autobus">
+        <Marca>KIA</Marca>
+        <Modelo>Citywide</Modelo>
+        <Autobus>
+            <Plazas>60</Cilindrada>        
+        </Autobus>        
+    </Vehiculo>
+</Vehiculos>

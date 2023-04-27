@@ -5,6 +5,10 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 
 public interface IClientes {
 
+	void comenzar() throws OperationNotSupportedException;
+	
+	void terminar(); 
+
 	List<Cliente> get();
 
 	int getCantidad();

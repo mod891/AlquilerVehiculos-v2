@@ -34,6 +34,7 @@ public class VistaTexto extends Vista {
 
 	}
 	public void terminar() {
+		controlador.terminar();
 		System.out.println("La vista ha finalizado");
 	}
 	

@@ -11,6 +11,11 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IAlquileres;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.ficheros.utilidades.UtilidadesXml;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class Alquileres implements IAlquileres {
 
@@ -184,5 +189,57 @@ public class Alquileres implements IAlquileres {
 				throw new OperationNotSupportedException("ERROR: No existe ningún alquiler igual.");
 		 
 		coleccionAlquileres.remove(alquiler);
+	}
+
+	private Alquiler elementToAlquiler(Element elemento) {
+		Alquiler alquiler = null;
+		Vehiculo vehiculo = null;
+		LocalDate fecha = null;
+		Cliente cliente = null;
+	/*	
+		Element nNombre, nTelefono;
+		String nombre,telefono,dni;
+		System.out.println("returnando nuevo cliente");
+		dni = elemento.getAttribute(DNI);
+		nNombre = (Element) elemento.getElementsByTagName(NOMBRE).item(0);
+		nombre = nNombre.getTextContent();
+		nTelefono = (Element) elemento.getElementsByTagName(TELEFONO).item(0);
+		telefono = nTelefono.getTextContent();
+		System.out.println("returnando nuevo cliente"+nombre+dni+telefono);
+		*/
+		return new Alquiler(cliente,vehiculo,fecha);
+	}
+	private void leerXml() throws OperationNotSupportedException {
+		
+		Document document = UtilidadesXml.xmlToDom(RUTA_FICHERO);
+		Element raiz = document.getDocumentElement();
+		
+		NodeList nodeList = raiz.getElementsByTagName(ALQUILER);
+		System.out.println("leyendo"+nodeList.getLength());
+		
+		for (int i=0; i<nodeList.getLength(); i++) {
+			Node nodo = nodeList.item(i);
+			System.out.println("iterando");
+			if(nodo.getNodeType() == Node.ELEMENT_NODE) {
+				System.out.println("iterando2");
+				Alquiler alquiler = elementToAlquiler((Element) nodo);
+				System.out.println("INSERT");
+				insertar(alquiler);
+			}
+		}
+	}
+	
+	private void escribirXml() {
+		
+	}
+	
+	@Override
+	public void comenzar() throws OperationNotSupportedException {
+	//	leerXml();
+	}
+
+	@Override
+	public void terminar() {
+		escribirXml();
 	}
 }

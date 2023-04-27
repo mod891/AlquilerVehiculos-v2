@@ -25,14 +25,23 @@ public abstract class Modelo {
 		setFuenteDatos(factoriaFuenteDatos.crear());
 	}
 	
-	public void comenzar() {
+	public void comenzar() throws OperationNotSupportedException {
 
 		clientes = fuenteDatos.crearClientes();
+		clientes.comenzar();
 		alquileres = fuenteDatos.crearAlquileres();
 		vehiculos = fuenteDatos.crearVehiculos();
+		
+		alquileres.comenzar();
+		vehiculos.comenzar();
 	}
 	
 	public void terminar() {
+		
+		
+		clientes.terminar();
+		vehiculos.terminar();
+		alquileres.terminar();
 		System.out.println("El modelo ha terminado.");
 	}
 	

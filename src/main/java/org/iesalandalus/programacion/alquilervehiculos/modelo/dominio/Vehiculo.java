@@ -31,7 +31,6 @@ public abstract class Vehiculo {
 	private void setMarca(String marca) {
 		if (marca == null) 
 			throw new NullPointerException("ERROR: La marca no puede ser nula.");
-		
 		if (marca.matches(ER_MARCA))
 			this.marca = marca;
 		else

@@ -8,6 +8,10 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 
 public interface IVehiculos {
 	
+	void comenzar() throws OperationNotSupportedException;
+	
+	void terminar(); 
+	
 	List<Vehiculo> get();
 	
 	int getCantidad();
