@@ -9,6 +9,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Alquiler;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IClientes;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.ficheros.utilidades.UtilidadesXml;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -50,11 +51,10 @@ public class Clientes implements IClientes {
 		
 		for (int i=0; i<nodeList.getLength(); i++) {
 			Node nodo = nodeList.item(i);
-			System.out.println("iterando");
 			if(nodo.getNodeType() == Node.ELEMENT_NODE) {
 				System.out.println("iterando2");
 				Cliente cliente = elementToCliente((Element) nodo);
-				System.out.println("INSERT");
+				System.out.println("INSERT"+cliente);
 				insertar(cliente);
 			}
 		}
@@ -99,13 +99,16 @@ public class Clientes implements IClientes {
 		Element raiz = null;
 		Document document = UtilidadesXml.crearDomVacio(RAIZ);
 		raiz = document.getDocumentElement();
-	
+		System.out.println("escribirxml");
 		if (!coleccionClientes.isEmpty()) {
 			for (Cliente it : coleccionClientes) {
+				try {
 				Element cliente = clienteToElement(document, it);
-				System.out.println("aguardar:"+it.toString());
+				System.out.println("aguardar:"+it.toString()+cliente);
 				raiz.appendChild(cliente);
-
+				} catch (DOMException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		}
 		

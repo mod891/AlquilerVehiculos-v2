@@ -9,7 +9,6 @@ public enum Accion {
 	BUSCAR_VEHICULO("Buscar Vehículo"), 
 	BUSCAR_ALQUILER("Buscar Alquiler"),
 	MODIFICAR_CLIENTE("Modificar Cliente"), 
-	DEVOLVER_ALQUILER("Devolver Alquiler"), 
 	BORRAR_CLIENTE("Borrar Cliente"), 
 	BORRAR_VEHICULO("Borrar Vehículo"),
 	BORRAR_ALQUILER("Borrar Alquiler"), 
@@ -20,7 +19,7 @@ public enum Accion {
 	LISTAR_ALQUILERES_VEHICULO("Listar Alquileres Vehículo"),
 	DEVOLVER_ALQUILER_CLIENTE("Devolver Alquiler Cliente"),
 	DEVOLVER_ALQUILER_VEHICULO("Devolver Alquiler Vehículo"),
-	MOSTRAR_ESTADISTICAS_MESUALES("Mostrar Estadisticas Mensuales");
+	MOSTRAR_ESTADISTICAS_MESUALES("Mostrar Estadísticas Mensuales");
 	
 	private String texto; 
 	

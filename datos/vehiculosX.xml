@@ -16,4 +16,12 @@
             <Plazas>60</Cilindrada>        
         </Autobus>        
     </Vehiculo>
+     <Vehiculo Matricula="2233BBC" Tipo="Furgoneta">
+        <Marca>Seat</Marca>
+        <Modelo>C15</Modelo>
+        <Furgoneta>
+            <Plazas>8</Plazas>
+            <Pma>1000</Pma>
+        </Furgoneta>
+    </Vehiculo>
 </Vehiculos>

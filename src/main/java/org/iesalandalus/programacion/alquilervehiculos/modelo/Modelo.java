@@ -29,11 +29,13 @@ public abstract class Modelo {
 
 		clientes = fuenteDatos.crearClientes();
 		clientes.comenzar();
-		alquileres = fuenteDatos.crearAlquileres();
+
 		vehiculos = fuenteDatos.crearVehiculos();
-		
-		alquileres.comenzar();
 		vehiculos.comenzar();
+
+		alquileres = fuenteDatos.crearAlquileres();
+		alquileres.comenzar();
+		
 	}
 	
 	public void terminar() {
@@ -41,7 +43,7 @@ public abstract class Modelo {
 		
 		clientes.terminar();
 		vehiculos.terminar();
-		alquileres.terminar();
+		//alquileres.terminar();
 		System.out.println("El modelo ha terminado.");
 	}
 	

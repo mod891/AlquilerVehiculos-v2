@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.ficheros;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.IAlquileres;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.ficheros.utilidades.UtilidadesXml;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -22,7 +24,7 @@ public class Alquileres implements IAlquileres {
 	List<Alquiler> coleccionAlquileres;
 	private static Alquileres instancia = null;
 	
-	private static final String RUTA_FICHERO = "/datos/alquileres.xml";
+	private static final String RUTA_FICHERO = "datos/alquileres.xml";
 	private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private static final String RAIZ = "Alquileres"; 
 	private static final String ALQUILER = "Alquiler";
@@ -104,23 +106,6 @@ public class Alquileres implements IAlquileres {
 		coleccionAlquileres.add(alquiler);
 	}
 	
-/*
-	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException {
-		if (alquiler == null) 
-			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
-		
-		if (fechaDevolucion == null) 
-			throw new NullPointerException("ERROR: No se puede devolver un alquiler nulo.");
-		
-		int indice = coleccionAlquileres.indexOf(alquiler);
-		
-		if (indice != -1) 
-			coleccionAlquileres.get(indice).devolver(fechaDevolucion);
-			
-		else if (indice == -1) 
-			throw new OperationNotSupportedException("ERROR: No existe ningún alquiler igual.");
-	}
-*/	
 	public void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
 		Alquiler abierto = getAlquilerAbierto(cliente);
 		
@@ -193,21 +178,51 @@ public class Alquileres implements IAlquileres {
 
 	private Alquiler elementToAlquiler(Element elemento) {
 		Alquiler alquiler = null;
-		Vehiculo vehiculo = null;
 		LocalDate fecha = null;
-		Cliente cliente = null;
-	/*	
-		Element nNombre, nTelefono;
-		String nombre,telefono,dni;
-		System.out.println("returnando nuevo cliente");
-		dni = elemento.getAttribute(DNI);
-		nNombre = (Element) elemento.getElementsByTagName(NOMBRE).item(0);
-		nombre = nNombre.getTextContent();
-		nTelefono = (Element) elemento.getElementsByTagName(TELEFONO).item(0);
-		telefono = nTelefono.getTextContent();
-		System.out.println("returnando nuevo cliente"+nombre+dni+telefono);
-		*/
-		return new Alquiler(cliente,vehiculo,fecha);
+		Cliente cliente = null, clienteBuscado = null;
+		Vehiculo vehiculo = null, vehiculoBuscado = null;
+		String dni, matricula, fechaAlquilerStr, fechaDevolucionStr;
+		Element fechaAlquiler, fechaDevolucion;
+		dni = elemento.getAttribute(DNI_CLIENTE);
+		cliente = Cliente.getClienteConDni(dni);
+		clienteBuscado = Clientes.getInstancia().buscar(cliente);
+		
+		matricula = elemento.getAttribute(MATRICULA);
+		vehiculo = Vehiculo.getVehiculoConMatricula(matricula);
+		vehiculoBuscado = Vehiculos.getInstancia().buscar(vehiculo);
+		
+		fechaAlquiler = (Element) elemento.getElementsByTagName(FECHA_ALQUILER).item(0);
+		fechaAlquilerStr = fechaAlquiler.getTextContent();
+		
+		try {
+			fecha = LocalDate.parse(fechaAlquilerStr, FORMATO_FECHA);
+		}catch(DateTimeParseException e) {
+			fecha = null;
+		}
+		
+		alquiler = new Alquiler(clienteBuscado,vehiculoBuscado,fecha);
+		
+		fechaDevolucion = (Element) elemento.getElementsByTagName(FECHA_DEVOLUCION).item(0);
+		fechaDevolucionStr = fechaDevolucion.getTextContent();
+		
+		try {
+			fecha = LocalDate.parse(fechaDevolucionStr, FORMATO_FECHA);
+		}catch(DateTimeParseException e) {
+			System.out.println(e.getMessage());
+			fecha = null;
+		}
+		if (fecha != null) {
+			try {
+				System.out.println("Devolviendo alquiler");
+				alquiler.devolver(fecha); // BUG
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			System.out.println("no devolviendo");
+		}
+	
+		return alquiler;
 	}
 	private void leerXml() throws OperationNotSupportedException {
 		
@@ -215,27 +230,62 @@ public class Alquileres implements IAlquileres {
 		Element raiz = document.getDocumentElement();
 		
 		NodeList nodeList = raiz.getElementsByTagName(ALQUILER);
-		System.out.println("leyendo"+nodeList.getLength());
+		System.out.println("leyendo alquileres"+nodeList.getLength());
 		
 		for (int i=0; i<nodeList.getLength(); i++) {
 			Node nodo = nodeList.item(i);
-			System.out.println("iterando");
 			if(nodo.getNodeType() == Node.ELEMENT_NODE) {
 				System.out.println("iterando2");
 				Alquiler alquiler = elementToAlquiler((Element) nodo);
-				System.out.println("INSERT");
+				System.out.println("INSERT ALQUILER");
 				insertar(alquiler);
 			}
 		}
 	}
 	
 	private void escribirXml() {
+		Document documento = UtilidadesXml.crearDomVacio(RAIZ);
+		Element raiz = documento.getDocumentElement();
 		
+		
+		for(Alquiler it :coleccionAlquileres) {
+			
+		    	try {
+					Element alquiler = alquilerToElement(documento,it);
+					raiz.appendChild(alquiler);
+				} catch (DOMException e) {// TODO Auto-generated catch blocke.printStackTrace();}
+					System.out.println(e.getMessage());
+				}
+
+		UtilidadesXml.domToXml(documento, RUTA_FICHERO);
+		}
 	}
 	
+	private Element alquilerToElement(Document documento, Alquiler alquiler) {
+		Element raiz = documento.createElement(ALQUILER);
+		raiz.setAttribute(DNI_CLIENTE, alquiler.getCliente().getDni());
+		raiz.setAttribute(MATRICULA, alquiler.getVehiculo().getMatricula());
+		Element eFechaAlquiler = documento.createElement(FECHA_ALQUILER);
+		eFechaAlquiler.setTextContent(alquiler.getFechaAlquiler().format(FORMATO_FECHA));
+		eFechaAlquiler.setAttribute(FORMATO, "dd/MM/yyyy");
+		raiz.appendChild(eFechaAlquiler);
+		
+		Element eFechaDevolucion = documento.createElement(FECHA_DEVOLUCION);
+		if(alquiler.getFechaDevolucion() != null) {
+			eFechaDevolucion.setTextContent(alquiler.getFechaDevolucion().format(FORMATO_FECHA));
+		}else {
+			eFechaDevolucion.setTextContent("");
+		}
+		
+		eFechaDevolucion.setAttribute(FORMATO, "dd/MM/yyyy");
+		raiz.appendChild(eFechaDevolucion);
+		
+		return raiz;
+	}
+
 	@Override
 	public void comenzar() throws OperationNotSupportedException {
-	//	leerXml();
+		leerXml();
 	}
 
 	@Override

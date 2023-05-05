@@ -36,15 +36,17 @@ public class Consola {
 		System.out.println("5: BUSCAR VEHÍCULO");
 		System.out.println("6: BUSCAR ALQUILER");
 		System.out.println("7: MODIFICAR CLIENTE");
-		System.out.println("8: DEVOLVER ALQUILER");
-		System.out.println("9: BORRAR CLIENTE");
-		System.out.println("10: BORRAR VEHÍCULO");
-		System.out.println("11: BORRAR ALQUILER");
-		System.out.println("12: LISTAR CLIENTES");
-		System.out.println("13: LISTAR VEHÍCULOS");
-		System.out.println("14: LISTAR ALQUILERES");
-		System.out.println("15: LISTAR ALQUILERES CLIENTE");
-		System.out.println("16: LISTAR ALQUILERES VEHÍCULOS");
+		System.out.println("8: BORRAR CLIENTE");
+		System.out.println("9: BORRAR VEHÍCULO");
+		System.out.println("10: BORRAR ALQUILER");
+		System.out.println("11: LISTAR CLIENTES");
+		System.out.println("12: LISTAR VEHÍCULOS");
+		System.out.println("13: LISTAR ALQUILERES");
+		System.out.println("14: LISTAR ALQUILERES CLIENTE");
+		System.out.println("15: LISTAR ALQUILERES VEHÍCULOS");
+		System.out.println("16: DEVOLVER ALQUILER CLIENTE");
+		System.out.println("17: DEVOLVER ALQUILER VEHÍCULO");
+		System.out.println("18: MOSTRAR ESTADÍSTICAS MENSUALES");
 		System.out.println("0: SALIR");
 	}
 	

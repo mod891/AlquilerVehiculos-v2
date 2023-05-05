@@ -33,7 +33,7 @@ public class Controlador {
 	
 	public void terminar() {
 		modelo.terminar();
-		vista.terminar();
+		//vista.terminar();
 	}
 	
 	public void insertar(Cliente cliente) throws OperationNotSupportedException  {

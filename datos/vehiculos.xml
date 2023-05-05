@@ -4,14 +4,22 @@
         <Marca>Seat</Marca>
         <Modelo>León</Modelo>
         <Turismo>
-            <Cilindrada>1100</Cilindrada>        
-        </Turismo>        
+            <Cilindrada>1100</Cilindrada>
+        </Turismo>
     </Vehiculo>
     <Vehiculo Matricula="1234BCD" Tipo="Autobus">
         <Marca>KIA</Marca>
         <Modelo>Citywide</Modelo>
         <Autobus>
-            <Plazas>60</Plazas>        
-        </Autobus>        
+            <Plazas>60</Plazas>
+        </Autobus>
+    </Vehiculo>
+    <Vehiculo Matricula="4343BCD" Tipo="Furgoneta">
+        <Marca>KIA</Marca>
+        <Modelo>C15</Modelo>
+        <Furgoneta>
+            <Plazas>10</Plazas>
+            <Pma>1000</Pma>
+        </Furgoneta>
     </Vehiculo>
 </Vehiculos>

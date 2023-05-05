@@ -49,7 +49,7 @@ public class VistaTexto extends Vista {
 				insertarCliente();
 	            break;
 			case INSERTAR_VEHICULO: 
-				insertarVehiculo();//TODO
+				insertarVehiculo();
 	            break;
 			case INSERTAR_ALQUILER: 
 				insertarAlquiler();
@@ -95,13 +95,13 @@ public class VistaTexto extends Vista {
 			case LISTAR_ALQUILERES_VEHICULO: 
 				listarAlquileresVehiculo();
 	            break;
-			case DEVOLVER_ALQUILER_CLIENTE:
+			case DEVOLVER_ALQUILER_CLIENTE: // ERR EN DEVOLVER()
 				devolverAlquilerCliente();
 				break;
-			case DEVOLVER_ALQUILER_VEHICULO:
+			case DEVOLVER_ALQUILER_VEHICULO: // ERR EN DEVOLVER()
 				devolverAlquilerVehiculo();
 				break;
-			case MOSTRAR_ESTADISTICAS_MESUALES:
+			case MOSTRAR_ESTADISTICAS_MESUALES: // CHECK
 				mostrarEstadisticasMensualesTipoVehiculo();
 				break;
 		}
@@ -121,7 +121,7 @@ public class VistaTexto extends Vista {
 		 Consola.mostrarCabecera("Ha seleccionado insertar vehiculo");
 	        try {
 	        	Vehiculo vehiculo =Consola.leerVehiculo();
-	        	System.out.println(vehiculo.toString());
+	        	//System.out.println(vehiculo.toString());
 	            controlador.insertar(vehiculo);
 	            System.out.println("Ha insertado un nuevo vehículo");
 	        } catch (OperationNotSupportedException | NullPointerException | IllegalArgumentException e) {

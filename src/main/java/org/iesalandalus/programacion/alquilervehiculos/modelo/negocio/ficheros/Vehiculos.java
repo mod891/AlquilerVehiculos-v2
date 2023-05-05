@@ -5,6 +5,7 @@ import java.util.List;
 import javax.naming.OperationNotSupportedException;
 
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Cliente;
+import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Furgoneta;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Autobus;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Turismo;
 import org.iesalandalus.programacion.alquilervehiculos.modelo.dominio.Vehiculo;
@@ -79,12 +80,15 @@ public class Vehiculos implements IVehiculos {
 
 	private Vehiculo elementToVehiculo(Element elemento) {
 		Vehiculo vehiculo = null;
+		
 		String marca, modelo, matricula, tipo;
-		int cilindrada;
+		int cilindrada, pma, plazas;
 		matricula = elemento.getAttribute(MATRICULA);
 		
 		Element elemModelo = (Element) elemento.getElementsByTagName(MODELO).item(0);
 		Element elemMarca = (Element) elemento.getElementsByTagName(MARCA).item(0);
+		Element elemPlazas, elemPma;
+		
 		modelo = elemModelo.getTextContent();
 		marca = elemMarca.getTextContent();
 		tipo = elemento.getAttribute(TIPO);
@@ -97,14 +101,74 @@ public class Vehiculos implements IVehiculos {
 			break;
 		case AUTOBUS:
 			Element elemAutobus = (Element) elemento.getElementsByTagName(tipo).item(0);
-			Element elemPlazas = (Element) elemAutobus.getElementsByTagName(PLAZAS).item(0);
-			int plazas = Integer.parseInt(elemPlazas.getTextContent());
+			 elemPlazas = (Element) elemAutobus.getElementsByTagName(PLAZAS).item(0);
+			plazas = Integer.parseInt(elemPlazas.getTextContent());
 			
 			vehiculo = new Autobus(marca, modelo, plazas, matricula);
 			break;
+		case FURGONETA:
+			Element elemFurgoneta = (Element) elemento.getElementsByTagName(tipo).item(0);
+			elemPlazas = (Element) elemFurgoneta.getElementsByTagName(PLAZAS).item(0);
+			elemPma = (Element) elemFurgoneta.getElementsByTagName(PMA).item(0);
+			pma = Integer.parseInt(elemPma.getTextContent());
+			plazas = Integer.parseInt(elemPlazas.getTextContent());
+			vehiculo = new Furgoneta(marca,modelo,pma,plazas,matricula);
 		}
 		return vehiculo;
 	}
+	private Element vehiculoToElement(Document dom, Vehiculo vehiculo) {
+		Element raiz, marca, modelo;
+		String tipo;
+		if (vehiculo instanceof Autobus) 
+			tipo = AUTOBUS;
+		else if (vehiculo instanceof Turismo) 
+			tipo = TURISMO;
+		else
+			tipo = FURGONETA;
+		
+		raiz = dom.createElement(VEHICULO);
+		raiz.setAttribute(MATRICULA, vehiculo.getMatricula());
+		raiz.setAttribute(TIPO, tipo);
+		
+		marca = dom.createElement(MARCA);
+		marca.setTextContent(vehiculo.getMarca());
+		raiz.appendChild(marca);
+		
+		modelo = dom.createElement(MODELO);
+		modelo.setTextContent(vehiculo.getModelo());
+		raiz.appendChild(modelo);
+		
+		if (vehiculo instanceof Turismo) {
+			
+			Element turismo = dom.createElement(TURISMO);
+			Element cilindrada = dom.createElement(CILINDRADA);
+			cilindrada.setTextContent(Integer.toString(((Turismo) vehiculo).getCilindrada()));
+			turismo.appendChild(cilindrada);		
+			raiz.appendChild(turismo);
+			
+		} else if(vehiculo instanceof Autobus) {
+			
+			Element autobus = dom.createElement(AUTOBUS);	
+			Element plazas = dom.createElement(PLAZAS);
+			plazas.setTextContent(Integer.toString(((Autobus) vehiculo).getPlazas()));
+			autobus.appendChild(plazas);
+			raiz.appendChild(autobus);
+			
+		} else if (vehiculo instanceof Furgoneta) {
+			Element furgoneta = dom.createElement(FURGONETA);
+			Element plazas = dom.createElement(PLAZAS);
+			plazas.setTextContent(Integer.toString(((Furgoneta) vehiculo).getPlazas()));
+			furgoneta.appendChild(plazas);
+			
+			Element pma = dom.createElement(PMA);
+			pma.setTextContent(Integer.toString(((Furgoneta) vehiculo).getPma()));
+			furgoneta.appendChild(pma);
+			raiz.appendChild(furgoneta);
+		}
+		
+		return raiz;
+	}
+	
 	private void leerXml() throws OperationNotSupportedException {
 		Document documento = UtilidadesXml.xmlToDom(RUTA_FICHERO);
 		Element raiz = documento.getDocumentElement();
@@ -116,7 +180,7 @@ public class Vehiculos implements IVehiculos {
 			if (nodo.getNodeType() == Node.ELEMENT_NODE) {
 				Element elemVehiculo = (Element) nodo;
 				Vehiculo vehiculo = elementToVehiculo(elemVehiculo);
-				
+				System.out.println("INSERTANDO"+vehiculo);
 				insertar(vehiculo);
 			}
 		}
@@ -124,6 +188,20 @@ public class Vehiculos implements IVehiculos {
 	
 	private void escribirXml() {
 		
+		Element raiz = null;
+		Document document = UtilidadesXml.crearDomVacio(RAIZ);
+		raiz = document.getDocumentElement();
+	
+		if (!coleccionVehiculos.isEmpty()) {
+			for (Vehiculo it : coleccionVehiculos) {
+				Element vehiculo = vehiculoToElement(document, it);
+				System.out.println("aguardar:"+it.toString()+vehiculo);
+				raiz.appendChild(vehiculo);
+
+			}
+		}
+		
+		UtilidadesXml.domToXml(document, RUTA_FICHERO); 
 	}
 	@Override
 	public void comenzar() throws OperationNotSupportedException {
