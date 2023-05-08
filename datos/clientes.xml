@@ -8,8 +8,4 @@
         <Nombre>Patricio Estrella</Nombre>
         <Telefono>950111111</Telefono>
     </Cliente>
-    <Cliente Dni="23305525q">
-        <Nombre>David Motos</Nombre>
-        <Telefono>611222333</Telefono>
-    </Cliente>
 </Clientes>
